@@ -8,7 +8,7 @@ const accountRouter = require('./routes/account')
 const logRouter = require('./routes/log')
 const codeDefinitionRouter = require('./routes/codedefinition')
 //Environment
-const port = process.env.port
+const port = process.env.PORT
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
