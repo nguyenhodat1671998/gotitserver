@@ -9,9 +9,9 @@ const router = new express.Router()
 
 router.post('/login', async (req, res) => {
     try {
-        const account = await Account.findByCredentials(req.body.phone_number, req.body.password)
+        const account = await Account.findByCredentials(req.body.phonenumber, req.body.password)
         const token = await account.generateAuthToken()
-        res.status(200).send({account, token})
+        res.status(200).send(account)
     } catch (e) {
         res.status(400).send(e);
     }
@@ -34,7 +34,7 @@ router.post('/signup', async (req, res) => {
     const account = new Account(req.body)
     try {
         await account.save()
-        res.status(201).send({ account })
+        res.status(201).send(account)
     } catch (e) {
         res.status(400).send(e)
     }
@@ -52,7 +52,7 @@ router.post('/topup', async (req, res) => {
             description: "You added " + req.body.extra_money + "VND to wallet"
         })
         await log.save()
-        res.status(200).send({ Message: "Successfully Topup" })
+        res.status(200).send()
     } catch (e) {
         res.status(400).send(e)
     }
@@ -63,12 +63,12 @@ router.post('/topup', async (req, res) => {
 router.post('/changepass', async(req,res) => {
     try {
         console.log(req.body)
-        const account = await Account.findByCredentials(req.body.phone_number, req.body.password)
+        const account = await Account.findByCredentials(req.body.phonenumber, req.body.password)
         
         account.password = req.body.new_password
        
         await account.save()
-        res.status(200).send({Message:"Successfully changing password"})
+        res.status(200).send()
     } catch (e) {
         res.status(400).send(e);
     }
@@ -80,7 +80,7 @@ router.get('/info/:id', async (req, res) => {
         if (account)
             res.status(200).send(account)
         else
-            res.status(404).send({Message: "Cannot Found Info"})
+            res.status(404).send()
     } catch (e) {
         res.status(400).send(e)
     }
