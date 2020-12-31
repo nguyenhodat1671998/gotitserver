@@ -1,6 +1,7 @@
 //Library
 const express = require('express')
 const app = express();
+var cors = require('cors')
 //Router
 const indexRouter = require('./routes/index')
 const voucherRouter = require('./routes/voucher')
@@ -11,6 +12,7 @@ const codeDefinitionRouter = require('./routes/codedefinition')
 const port = process.env.PORT
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+app.use(cors())
 
 app.use(indexRouter)
 app.use('/voucher',voucherRouter)
